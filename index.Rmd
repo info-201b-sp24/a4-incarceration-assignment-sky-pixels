@@ -74,13 +74,9 @@ This chart displays the relationship between female and male prison population r
 
 ### Map
 
-``````{r, echo = FALSE, code = readLines("mapchart.R")}
+``````{r, echo = FALSE, warning = FALSE, fig.width = 7, fig.height = 4, code = readLines("mapchart.R")}
 ```
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
 
-The last chart that you will create and include will show how a variable is distributed geographically. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+Although I wanted to compare the population between male and female, this map only shows the female prison population across all states. I had a bit of trouble when making the map try to contain both values, so I thought showing the distribution of women in prisons would be an interesting alternative. An interesting finding is that the majority of the states have a pretty low female population in prisons, with the highest being in California. This map helps to visualize the distribution. 
 
-- Your map needs a title
-- Your color scale needs a legend with a clear label
-- Use a map based coordinate system to set the aspect ratio of your map
-
+However, I should note that I think my map code is a bit off, as it oddly doesn't include some states that do have data like Idaho... 
