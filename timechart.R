@@ -2,10 +2,7 @@
 library(dplyr)
 library(ggplot2)
 
-# Assuming the datasets are named df1 and df2
-# Ensure the datasets are combined if needed, otherwise use the relevant dataset directly
-
-# Summarize the data by year for male and female prison populations
+# summarizing data by year for male and female prison populations
 prison_population_summary <- prison_pop_data %>%
   filter(year >= 1990) %>%
   group_by(year) %>%
@@ -23,13 +20,12 @@ wa_population_summary <- wa_pop_data %>%
   ) %>%
   mutate(source = "Washington")
 
-# Combine the datasets
+# combining bc I want to see both
 combined_data <- bind_rows(
   prison_population_summary %>% rename(male_prison_pop = total_male_prison_pop, female_prison_pop = total_female_prison_pop),
   wa_population_summary %>% rename(male_prison_pop = total_male_prison_pop, female_prison_pop = total_female_prison_pop)
 )
 
-# Plot the male vs female prison population over the years
 ggplot(combined_data, aes(x = year)) +
   geom_line(aes(y = male_prison_pop, color = "Male", linetype = source)) +
   geom_line(aes(y = female_prison_pop, color = "Female", linetype = source)) +

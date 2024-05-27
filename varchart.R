@@ -1,6 +1,7 @@
 library(dplyr)
 library(ggplot2)
 
+# removing NA values
 wa_pop_data <- wa_pop_data %>%
   filter(!is.na(female_prison_pop_rate) & !is.na(male_prison_pop_rate))
 
