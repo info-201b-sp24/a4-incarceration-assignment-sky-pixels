@@ -4,60 +4,73 @@ output: html_document
 ---
 
 ### Introduction
+Incarceration rates in the US have been a subject of significant debate, reflecting a broader socio-economic and political dynamic. One area I would like to analyze is the difference in incarceration rates between men and women. Understanding these differences may shed light on the various factors that contribute to incarceration and how they might affect different segments of the population.
 
-An introduction of the problem domain and a description of the variable(s) you are choosing to analyze (and why!)
+Specifically, I would like to examine how these rates vary between all of the US and Washington State. As a woman myself, I am particularly curious in understanding these disparities. By analyzing national trends and comparing them to data from Washington State, I hope to uncover whether the criminal justice system operates differently for men and women and how these differences manifest across different types of correctional facilities.
+
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+```{r, echo = FALSE, message = FALSE, code = readLines("summary.R")}
+```
+There are notable differences in incarceration rates between the national average and Washington State. Nationally, the mean prison population for all counties is  ```r format(summary_stats$prison_total, F)```, with female inmates accounting for ```r format(summary_stats$prison_fem, F)```, and male inmates accounting for ```r format(summary_stats$prison_male, F)```. 
 
-These will likely be calculated using your DPLYR skills, answering questions such as: 
+In Washington State, however, the average prison population is significantly lower at ```r format(summary_stats$wa_total, F)```, with a female population of ```r format(summary_stats$wa_fem, F)```, and a male population of ```r format(summary_stats$wa_male, F)```.
 
-- What is the average value of my variable across all the counties (in the current year)?
-- Where is my variable the highest / lowest?
-- How much has my variable change over the last N years?
-
-Feel free to calculate and report values that you find relevant. Again, remember that the purpose is to think about how these measure of incarceration vary by race.
+This discrepancy is further highlighted by the ratios: nationally, the ratio of female to total inmates is```r format(prison_fem_ratio, F)```, while in Washington State, it is much lower at```r format(wa_fem_ratio, F)```. Conversely, the ratio of male to total inmates nationally is ```r format(prison_male_ratio, F)```, but in Washington State, it is significantly higher at ```r format(wa_male_ratio, F)```. These differences suggest a substantial variation in gender distribution within the prison populations between the national average and Washington State.
 
 ### The Dataset
 
-Who collected the data?  
-How was the data collected or generated?  
-Why was the data collected?  
-How many observations (rows) are in your data?  
-How many features (columns) are in the data?  
-What, if any, ethical questions or questions of power do you need to consider when working with this data?  
-What are possible limitations or problems with this data?   (at least 200 words)
+**Who collected the data?**
 
+The Vera Institute of Justice
+
+
+**How was the data collected or generated?**
+
+The data was collected through the Bureau of Justice Statistics. The Bureau of Justice Statistics collects data through the COJ (Census of Jails) and the ASJ (Annual Survey of Jails). The COJ collects data on the number of people in jail, while the ASJ collects data on the number of people in prison. This project was by the Robert W. Wilson Charitable Trust. Additionally, with the help of a grant from the MacArthur Foundation Safety and Justice Challenge, the Vera Institute of Justice was able to collect data on the number of people in jail and prison in the United States.
+
+
+**Why was the data collected?** 
+
+The data was collected to get a more detailed look at incarceration. While state-level data gives a broad view, it fails to capture the detailed causes and consequences of incarceration as county officials can make key decisions about who goes to jail and for how long. Therefore, county-level data helps us better understand the reasons behind high incarceration rates in the U.S.
+
+**How many observations (rows) are in your data?**
+
+In the broad prison data set there are ```r format(summary_stats$rows_p, F)``` and in the Washington State data set there are ```r format(summary_stats$rows_wa, F)``` rows.
+
+**How many features (columns) are in the data?**
+
+In the broad prison data set there are ```r format(summary_stats$cols_p, F)``` and in the Washington State data set there are ```r format(summary_stats$cols_wa, F)``` columns.
+
+
+**What, if any, ethical questions or questions of power do you need to consider when working with this data?**
+
+When working with incarceration data, ethical questions to consider include privacy concerns and the potential stigmatization of individuals based on their criminal history. It's crucial to handle the data with sensitivity and respect. Additionally, questions of power involve recognizing how the criminal justice system's inherent biases and disparities may be reflected in the data. These systemic issues need to be carefully considered and addressed in the analysis.
+
+
+**What are possible limitations or problems with this data? (at least 200 words)**
+One limitation of this data is that it may not capture the full scope of the criminal justice system's impact on individuals. For example, the broad prison population data lacks detailed demographic information, such as race, ethnicity, and socioeconomic status. This absence makes it challenging to analyze and understand the disparities and biases present within the system. Without these details, it is difficult to identify which groups are disproportionately affected by incarceration and to what extent systemic racism or other forms of discrimination contribute to these disparities.
+
+In contrast, the Washington State data does include some demographic information, but it is still limited. While it provides a better understanding of the local population, it may not be comprehensive enough to draw conclusive insights about broader trends. The limited extent of demographic data in Washington State can restrict the ability to conduct in-depth analysis of how various factors, such as race and economic background, influence incarceration rates.
+
+Lastly, while this county-level data does help bridge some of these gaps by offering a more detailed view than state-level, it still has limitations. Like the Vera Institute mentioned themselves, county officials, judges, and prosecutors play a significant role in determining incarceration rates. Their discretion can lead to variability in incarceration practices across regions. This variability is not always apparent in the data, making it difficult to fully understand the underlying causes of differences in incarceration rates.
 
 ### Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - This may mean showing the same measure for different locations or different racial groups. Think carefully about a meaningful comparison of locations (e.g., the top 10 counties in a state, top 10 states, etc.)
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart1_example.R")}
+``````{r, echo = FALSE, code = readLines("timechart.R")}
 ```
+
+The chart above shows the trend of male vs female population in both Washington State (dotted line) and in the national level (solid line) over the years. Although I could do a static comparison through finding the averages of each variable, I wanted to see if there were any changes in the overall trends.The chart reveals that nationally, there are actually a greater female population. However, in Washington state, there is a greater male population. It should be noted that the gap is also bigger in Washington state than it is nationally. This suggests that just looking at the averages alone may not give the full picture of the incarceration rates, as the national averages showed a 50-50 ratio for male vs female population. 
+
 
 ### Variable Comparison Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
 
-The second chart that you will create and include will show how two different (continuous) variables are related to one another. Again, think carefully about what such a comparison means and what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
+``````{r, echo = FALSE, code = readLines("varchart.R")}
+```
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- If you choose to add a color encoding (not required), you need a legend for your different color and a clear legend title
+This chart displays the relationship between female and male prison population rates in Washington state. I wanted to include this chart specifically as this comparison helps to identify potential correlations or patterns in my home state's prison population dynamics between genders. Regarind findings, there seems to be a general positive correlation between the male and female prison population rates. As the female prison population rate increases, the male prison population rate also tends to increase. Additionally, the distribution of data points suggests that while there is a correlation, the male prison population rate tends to vary much more than the female rate, as indicated by the wider spread of points along the male rate axis and waiter outliers.
 
 ### Map
 
